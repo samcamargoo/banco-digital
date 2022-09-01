@@ -2,6 +2,8 @@ package com.sam.banco.services;
 
 import java.math.BigDecimal;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ public class ContaService {
 
 	private final ContaRepository contaRepository;
 	
+	@Transactional
 	public Conta criarContaAoRegistrarUsuario(Cliente cliente) {
 
 		var conta = new Conta();

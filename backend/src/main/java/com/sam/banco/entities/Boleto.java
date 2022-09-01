@@ -1,6 +1,7 @@
 package com.sam.banco.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,6 +32,8 @@ public class Boleto {
 	
 	private LocalDateTime geradoEm;
 	private LocalDateTime pagoEm;
+	private LocalDate validade;
+	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;

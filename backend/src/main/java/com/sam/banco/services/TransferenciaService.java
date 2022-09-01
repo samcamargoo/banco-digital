@@ -3,6 +3,8 @@ package com.sam.banco.services;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,7 @@ public class TransferenciaService {
 	private final ClienteService clienteService;
 	private final TransferenciaRepository transferenciaRepository;
 	
+	@Transactional
 	public ResponseEntity<Object> transferirDinheiroEntreContas(TransferenciaRequestDto transferenciaDto) {
 		
 		UserDetails user = clienteService.getUsuarioLogado();
@@ -51,14 +54,14 @@ public class TransferenciaService {
 		
 		transferenciaRepository.save(transferencia);
 		
-		/*Subtrair no saldo da Conta que enviou transferencia*/
+		/*Subtrair o valor da trasnferencia no saldo da Conta que enviou a transferencia*/
 		BigDecimal saldo = contaOptional.get().getSaldo().subtract(transferenciaDto.getValor());
 		contaOptional.get().setSaldo(saldo);
 		contaRepository.save(contaOptional.get());
 		
 		/*Adicionar no saldo da Conta beneficiada o valor da transferencia*/
-		BigDecimal beneficiarioSaldo = beneficiarioOptional.get().getSaldo().add(transferenciaDto.getValor());
-		beneficiarioOptional.get().setSaldo(beneficiarioSaldo);
+		//BigDecimal beneficiarioSaldo = beneficiarioOptional.get().getSaldo().add(transferenciaDto.getValor());
+		beneficiarioOptional.get().setSaldo(beneficiarioOptional.get().getSaldo().add(transferenciaDto.getValor()));
 		contaRepository.save(beneficiarioOptional.get());
 		return ResponseEntity.status(HttpStatus.CREATED).body("transferencia efetuada com sucesso");
 		

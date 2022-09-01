@@ -3,6 +3,8 @@ package com.sam.banco.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,7 @@ public class ClienteService {
 	private final ContaService contaService;
 	private final PasswordEncoder passwordEncoder;
 
+	@Transactional
 	public ResponseEntity<Object> criarConta(Cliente cliente) {
 
 		cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));

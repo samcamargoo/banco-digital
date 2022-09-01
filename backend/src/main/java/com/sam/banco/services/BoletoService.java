@@ -1,8 +1,12 @@
 package com.sam.banco.services;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +31,7 @@ public class BoletoService {
 	private final ClienteService clienteService;
 	private final ClienteRepository clienteRepository;
 
-	
+	@Transactional
 	public ResponseEntity<Object> gerarBoleto(Boleto boleto) {
 		
 		UserDetails usuario = clienteService.getUsuarioLogado();
@@ -36,6 +40,13 @@ public class BoletoService {
 		boleto.setCliente(cliente.get());
 		boleto.setGeradoEm(LocalDateTime.now());
 		boleto.setCodigoDeBarras(gerarCodigoDeBarras());
+		boleto.setValidade(LocalDate.now().plusDays(7));
+		
+		/*Se o boleto vencer num domingo, adicione mais um dia*/
+		if(boleto.getValidade().getDayOfWeek() == DayOfWeek.SUNDAY) {
+			boleto.setValidade(boleto.getValidade().plusDays(1));
+		}
+		
 		var boletoDto = new BoletoDto();
 		BeanUtils.copyProperties(boleto, boletoDto);
 		boletoRepository.save(boleto);
@@ -51,15 +62,24 @@ public class BoletoService {
 		}
 		return codigoDeBarras;
 	}
-
+	
+	@Transactional
 	public ResponseEntity<Object> pagarBoleto(String codigoDeBarras) {
+		
+		/*Procurando o boleto no banco de dados*/
+		Optional<Boleto> boletoOptional = boletoRepository.findByCodigoDeBarras(codigoDeBarras);
+		
+		if(boletoOptional.get().getValidade().isBefore(LocalDate.now())) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("boleto vencido");
+		}
+		
+		/*Obtendo usuario logado no sistema*/
 		UserDetails usuario = clienteService.getUsuarioLogado();
 		
 		/*Usuário que esta pagando o boleto*/
 		Optional<Cliente> clienteOptional = clienteRepository.findByEmail(usuario.getUsername());
 		
-		/*Procurando o boleto no banco de dados*/
-		Optional<Boleto> boletoOptional = boletoRepository.findByCodigoDeBarras(codigoDeBarras);
+	
 		
 		if(boletoOptional.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("boleto não encontrado");
@@ -72,7 +92,7 @@ public class BoletoService {
 		BigDecimal saldo = clienteOptional.get().getConta().getSaldo().subtract(boletoOptional.get().getValor()); 
 		
 		/*Se o resultado da subtraçao acima for menor que ZERO, retornamos saldo insuficiente*/
-		if(!((saldo.compareTo(BigDecimal.ZERO)) > 0)) {
+		if(!((saldo.compareTo(BigDecimal.ZERO)) >= 0)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("saldo insuficiente");
 		}
 		
