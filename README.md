@@ -4,10 +4,10 @@
 
 ### Projeto em desenvolvimento
 
-[X] Criação de conta
-[X] Gerar e pagar boletos (validade 7 dias, se o ultimo dia cair no domingo, sera adicionado mais um dia na validade)
-[X] Transferências de dinheiro entre contas
-[ ] Empréstimo
+- [X] Criação de conta
+- [X] Gerar e pagar boletos (validade 7 dias, se o ultimo dia cair no domingo, sera adicionado mais um dia na validade)
+- [X] Transferências de dinheiro entre contas
+- [ ] Empréstimo
 
 ## O que aprendi sobre backend neste projeto?
 
