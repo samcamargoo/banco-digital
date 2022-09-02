@@ -29,13 +29,13 @@ export function Navbar() {
   return (
     <Flex alignItems="center" m={1}>
       <Flex>
-        <Heading size="md">BD</Heading>
+        <Heading size="md">Banco Digital</Heading>
         <Spacer />
       </Flex>
       <Spacer />
       <Flex>
         <HStack>
-          <Show breakpoint="(max-width: 600px)">
+          <Show breakpoint="(max-width: 800px)">
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -86,7 +86,7 @@ export function Navbar() {
             </Menu>
           </Show>
           <form>
-            <Hide breakpoint="(max-width: 600px)">
+            <Hide breakpoint="(max-width: 800px)">
               <Input
                 width="250px"
                 height="40px"

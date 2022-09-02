@@ -1,5 +1,6 @@
 import { MainPage } from "./components/MainPage";
 import { Navbar } from "./components/Navbar";
+import '@fontsource/inter/700.css'
 
 function App() {
 

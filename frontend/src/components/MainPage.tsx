@@ -1,21 +1,93 @@
-import { Flex, Text } from "@chakra-ui/react";
-
+import {
+  Button,
+  Flex,
+  Heading,
+  HStack,
+  Icon,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { FaBarcode, FaQrcode } from "react-icons/fa";
+import { BiTransfer } from "react-icons/bi";
 export function MainPage() {
-    return (
-        <>
-        <Flex  backgroundColor="black">
-            <Flex>
-                <main>
-                    <Text>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore impedit cupiditate reiciendis eos accusantium minus dolorum eius dolore fugiat quisquam obcaecati nisi maiores ipsum consectetur recusandae molestias doloribus commodi?
-                    Architecto, eum! Voluptas commodi a deleniti, fuga possimus natus assumenda in aperiam dicta omnis dolore doloremque quo et ipsum reprehenderit temporibus eius, iure quod quibusdam ut obcaecati quisquam vitae quos.
-                    Repellat odio laborum voluptas soluta non natus vero, illo ratione autem saepe. Vel praesentium excepturi, eos nulla laborum necessitatibus atque distinctio est quidem, aliquid molestiae odit sunt reiciendis quod laudantium!
-                    Deleniti ullam, at nobis voluptatem, non laborum dolor voluptatum iusto fugiat quas perspiciatis exercitationem aspernatur quasi dolorum accusantium fugit quam sed. Cum quasi dolores illum recusandae asperiores officiis, maiores non?
-                    Quis inventore porro esse fugiat modi vel vero perspiciatis, incidunt voluptatibus impedit sit dolores nobis itaque mollitia numquam ducimus ea illo unde dolore nam iusto necessitatibus minima dolorem dolorum. Reiciendis!
-                    </Text>
-                </main>
-            </Flex>
+  return (
+    <>
+      <main>
+        {/*Header*/}
+        <Flex justifyContent="center">
+          <Flex maxWidth="800px" height="400px" alignItems="center">
+            <VStack>
+              <Heading
+                textAlign="center"
+                fontSize={["2.25rem", "2.25rem", "2.25rem", "4rem"]}
+              >
+                Faça parte do Mock Banco Digital
+              </Heading>
+              <Button
+                borderRadius="2px"
+                size={["sm", "md", "md", "lg"]}
+                colorScheme="teal"
+              >
+                Crie sua conta
+              </Button>
+            </VStack>
+          </Flex>
         </Flex>
-        </>
-    );
+        {/*Serviços*/}
+        <section>
+          <Flex justifyContent="center">
+            <Flex flexDir={["column", "column", "column", "row"]}>
+              <Flex
+                width="200px"
+                height="200px"
+                border="1px solid"
+                borderRadius="8px"
+                justifyContent="center"
+                m="3px"
+                alignItems="center"
+              >
+                <VStack>
+                  <Icon as={FaBarcode}></Icon>
+                  <Heading fontSize={["1.5rem"]}>Boleto</Heading>
+                  <Text>Pague seus boletos</Text>
+                </VStack>
+              </Flex>
+
+              <Flex
+                width="200px"
+                height="200px"
+                border="1px solid"
+                borderRadius="8px"
+                justifyContent="center"
+                m="3px"
+                alignItems="center"
+              >
+                <VStack>
+                  <Icon as={BiTransfer}></Icon>
+                  <Heading fontSize={["1.5rem"]}>Transferência</Heading>
+                  <Text>Sem limites</Text>
+                </VStack>
+              </Flex>
+
+              <Flex
+                width="200px"
+                height="200px"
+                border="1px solid"
+                borderRadius="8px"
+                justifyContent="center"
+                m="3px"
+                alignItems="center"
+              >
+                <VStack>
+                  <Icon as={FaQrcode}></Icon>
+                  <Heading fontSize={["1.5rem"]}>Pix</Heading>
+                  <Text>Sem limites</Text>
+                </VStack>
+              </Flex>
+            </Flex>
+          </Flex>
+        </section>
+      </main>
+    </>
+  );
 }
