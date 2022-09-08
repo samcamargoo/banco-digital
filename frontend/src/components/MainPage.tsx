@@ -120,9 +120,9 @@ export function MainPage() {
           </section>
           {/* Produtos */}
           <section>
-            <Flex>
+            <Flex flexDir="column">
               <Flex
-                flexDir={["column"]}
+                flexDir="column"
                 alignItems={["center", "center", "center", "flex-start"]}
               >
                 <Heading fontSize={["1.2rem", "1.2rem", "1.2rem", "24px"]}>
@@ -135,6 +135,7 @@ export function MainPage() {
                   border="1px solid #d6d0cc"
                   borderRadius="8px"
                   flexDir="column"
+                  justifyContent="center"
                 >
                   <Flex flexDir="column" ml={2}>
                     <Flex mt={3} height="25px">
