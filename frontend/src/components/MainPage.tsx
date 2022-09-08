@@ -53,7 +53,7 @@ export function MainPage() {
                 <Flex
                   width="200px"
                   height="200px"
-                  border="1px solid"
+                  border="1px solid #d6d0cc"
                   borderRadius="8px"
                   justifyContent="center"
                   m="3px"
@@ -69,7 +69,7 @@ export function MainPage() {
                 <Flex
                   width="200px"
                   height="200px"
-                  border="1px solid"
+                  border="1px solid #d6d0cc"
                   borderRadius="8px"
                   justifyContent="center"
                   m="3px"
@@ -85,7 +85,7 @@ export function MainPage() {
                 <Flex
                   width="200px"
                   height="200px"
-                  border="1px solid"
+                  border="1px solid #d6d0cc" 
                   borderRadius="8px"
                   justifyContent="center"
                   m="3px"
@@ -101,7 +101,7 @@ export function MainPage() {
                 <Flex
                   width="200px"
                   height="200px"
-                  border="1px solid"
+                  border="1px solid #d6d0cc"
                   borderRadius="8px"
                   justifyContent="center"
                   m="3px"
@@ -130,8 +130,8 @@ export function MainPage() {
 
               <Flex
                 width={["200px", "200px", "200px", "800px"]}
-                height={["250px"]}
-                border="1px solid"
+                height={["250px", "250px", "250px", "200px"]}
+                border="1px solid #d6d0cc"
                 borderRadius="8px"
                 flexDir="column"
               >
