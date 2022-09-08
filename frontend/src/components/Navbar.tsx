@@ -27,13 +27,15 @@ export function Navbar() {
     console.log("entrou");
   };
   return (
-    <Flex alignItems="center" m={1}>
+    <Flex alignItems="center" backgroundColor="teal" height="100px">
       <Flex>
-        <Heading size="md">Banco Digital</Heading>
+        <Heading size="md" ml={1} color="white">
+          Banco Digital
+        </Heading>
         <Spacer />
       </Flex>
       <Spacer />
-      <Flex>
+      <Flex mr={1}>
         <HStack>
           <Show breakpoint="(max-width: 800px)">
             <Menu>
@@ -91,6 +93,7 @@ export function Navbar() {
                 width="250px"
                 height="40px"
                 type="text"
+                bgColor="white"
                 placeholder="Email"
                 mr={1}
                 {...register("email")}
@@ -99,13 +102,14 @@ export function Navbar() {
                 width="100px"
                 type="password"
                 placeholder="Senha"
+                bgColor="white"
                 {...register("password")}
                 onChange={(e) => setPassword(e.target.value)}
               />
 
               {password.length < 1 ? (
                 <Button
-                disabled
+                  disabled
                   as={IconButton}
                   background="none"
                   icon={<LockIcon />}
