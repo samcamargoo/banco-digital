@@ -43,7 +43,7 @@ export function MainPage() {
         <Flex flexDir="column" ml={10} mr={10} mb={10}>
           <section>
             <Flex justifyContent={["center", "center", "center", "flex-start"]}>
-              <Heading fontSize={["1.5rem", "1.5rem", "1.5rem", "24px"]}>
+              <Heading fontSize={["1.2rem", "1.2rem", "1.2rem", "24px"]}>
                 resolva questões do dia a dia
               </Heading>
             </Flex>
@@ -51,7 +51,7 @@ export function MainPage() {
             <Flex justifyContent={["center", "center", "center", "flex-start"]}>
               <Flex flexDir={["column", "column", "column", "row"]} mb={10}>
                 <Flex
-                  width="200px"
+                  width={["300px", "300px", "300px", "200px"]}
                   height="200px"
                   border="1px solid #d6d0cc"
                   borderRadius="8px"
@@ -67,7 +67,7 @@ export function MainPage() {
                 </Flex>
 
                 <Flex
-                  width="200px"
+                  width={["300px", "300px", "300px", "200px"]}
                   height="200px"
                   border="1px solid #d6d0cc"
                   borderRadius="8px"
@@ -83,9 +83,9 @@ export function MainPage() {
                 </Flex>
 
                 <Flex
-                  width="200px"
+                  width={["300px", "300px", "300px", "200px"]}
                   height="200px"
-                  border="1px solid #d6d0cc" 
+                  border="1px solid #d6d0cc"
                   borderRadius="8px"
                   justifyContent="center"
                   m="3px"
@@ -99,7 +99,7 @@ export function MainPage() {
                 </Flex>
 
                 <Flex
-                  width="200px"
+                  width={["300px", "300px", "300px", "200px"]}
                   height="200px"
                   border="1px solid #d6d0cc"
                   borderRadius="8px"
@@ -120,41 +120,48 @@ export function MainPage() {
           </section>
           {/* Produtos */}
           <section>
-            <Flex
-              flexDir={["column"]}
-              alignItems={["center", "center", "center", "flex-start"]}
-            >
-              <Heading fontSize={["1.5rem", "1.5rem", "1.5rem", "24px"]}>
-                contrate nosso produtos
-              </Heading>
-
+            <Flex>
               <Flex
-                width={["200px", "200px", "200px", "800px"]}
-                height={["250px", "250px", "250px", "200px"]}
-                border="1px solid #d6d0cc"
-                borderRadius="8px"
-                flexDir="column"
+                flexDir={["column"]}
+                alignItems={["center", "center", "center", "flex-start"]}
               >
-                <Flex flexDir="column" ml={2}>
-                  <Flex mt={3} height="25px">
-                    <Icon mt={1.5} as={BiCreditCard}></Icon>
-                    <span>
-                      <Text>cartões</Text>
-                    </span>
+                <Heading fontSize={["1.2rem", "1.2rem", "1.2rem", "24px"]}>
+                  contrate nosso produtos
+                </Heading>
+
+                <Flex
+                  width={["300px", "300px", "300px", "800px"]}
+                  height={["250px", "250px", "250px", "200px"]}
+                  border="1px solid #d6d0cc"
+                  borderRadius="8px"
+                  flexDir="column"
+                >
+                  <Flex flexDir="column" ml={2}>
+                    <Flex mt={3} height="25px">
+                      <Icon mt={1.5} as={BiCreditCard}></Icon>
+                      <span>
+                        <Text>cartões</Text>
+                      </span>
+                    </Flex>
+                    <Flex mb={2} mt={4}>
+                      <Heading fontSize="18px">
+                        o cartão de crédito ideal
+                      </Heading>
+                    </Flex>
+                    <Flex mt={4}>
+                      <Text>
+                        São várias opções para escolher o cartão ideal para você
+                      </Text>
+                    </Flex>
+                    <Button
+                      mt={2}
+                      width="max-content"
+                      size="sm"
+                      colorScheme="teal"
+                    >
+                      Peça já o seu
+                    </Button>
                   </Flex>
-                  <Flex mb={2} mt={4}>
-                    <Heading fontSize="18px">
-                      o cartão ideal de crédito ideal
-                    </Heading>
-                  </Flex>
-                  <Flex mt={4}>
-                    <Text>
-                      São várias opções para escolher o cartão ideal para você
-                    </Text>
-                  </Flex>
-                  <Button mt={2} width="max-content" size="sm" colorScheme="teal">
-                    Peça já o seu
-                  </Button>
                 </Flex>
               </Flex>
             </Flex>
