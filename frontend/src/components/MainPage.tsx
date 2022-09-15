@@ -5,13 +5,17 @@ import {
   Hide,
   HStack,
   Icon,
+  Link,
   Show,
+  Spacer,
   Text,
   VStack,
 } from "@chakra-ui/react";
+
 import { FaBarcode, FaQrcode } from "react-icons/fa";
 import { BiTransfer, BiCreditCard } from "react-icons/bi";
 import "../assets/styles.css";
+import { Footer } from "./Footer";
 export function MainPage() {
   return (
     <>
@@ -169,6 +173,9 @@ export function MainPage() {
           </section>
         </Flex>
       </main>
+
+      <Footer />
+     
     </>
   );
 }
