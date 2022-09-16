@@ -25,10 +25,10 @@ export function Footer() {
           backgroundColor="teal"
           flexDir={["column", "column", "column", "row"]}
           justifyContent="space-around"
-          alignItems={["flex-start", "flex-start", "flex-start", "center"]}
+          alignItems={["center", "center", "center", "center"]}
           color="white"
         >
-          <Flex>
+          <Flex mb={["15px", "15px", "15px", "0"]}>
             <VStack>
               <Heading fontSize="1.5rem">nosso serviços</Heading>
 
@@ -38,7 +38,7 @@ export function Footer() {
             </VStack>
           </Flex>
 
-          <Flex>
+          <Flex mb={["15px", "15px", "15px", "0"]}>
             <VStack>
               <Heading fontSize="1.5rem">sobre nós</Heading>
               <Text>sobre o projeto</Text>
@@ -47,12 +47,12 @@ export function Footer() {
             </VStack>
           </Flex>
 
-          <Flex>
+          <Flex mb={["15px", "15px", "15px", "0"]}>
             <VStack>
               <Heading fontSize="1.5rem">fale conosco</Heading>
-              <Text>envie sua mensagem</Text>
-              <Text>linkedin</Text>
-              <Text>github</Text>
+              <Link href="https://api.whatsapp.com/send?phone=5534991155634" isExternal>envie sua mensagem</Link>
+              <Link href="https://linkedin.com/in/samuel-camargo" isExternal>linkedin</Link>
+              <Link href="https://github.com/samcamargoo" isExternal>github</Link>
             </VStack>
           </Flex>
         </Flex>

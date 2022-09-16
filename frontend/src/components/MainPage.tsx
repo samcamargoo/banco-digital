@@ -174,7 +174,7 @@ export function MainPage() {
         </Flex>
       </main>
 
-      <Footer />
+      
      
     </>
   );
