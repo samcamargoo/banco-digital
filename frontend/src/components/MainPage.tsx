@@ -16,9 +16,11 @@ import { FaBarcode, FaQrcode } from "react-icons/fa";
 import { BiTransfer, BiCreditCard } from "react-icons/bi";
 import "../assets/styles.css";
 import { Footer } from "./Footer";
+import { Navbar } from "./Navbar";
 export function MainPage() {
   return (
     <>
+    <Navbar />
       {/*Header*/}
       <Flex justifyContent="center">
         <Flex maxWidth="800px" height="400px" alignItems="center">

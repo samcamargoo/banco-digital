@@ -16,6 +16,7 @@ import {
   TiSocialGithubCircular,
 } from "react-icons/ti";
 import { VscGithub } from "react-icons/vsc";
+import "../assets/styles.css";
 export function Footer() {
   return (
     <>
@@ -50,9 +51,18 @@ export function Footer() {
           <Flex mb={["15px", "15px", "15px", "0"]}>
             <VStack>
               <Heading fontSize="1.5rem">fale conosco</Heading>
-              <Link href="https://api.whatsapp.com/send?phone=5534991155634" isExternal>envie sua mensagem</Link>
-              <Link href="https://linkedin.com/in/samuel-camargo" isExternal>linkedin</Link>
-              <Link href="https://github.com/samcamargoo" isExternal>github</Link>
+              <Link
+                href="https://api.whatsapp.com/send?phone=5534991155634"
+                isExternal
+              >
+                envie sua mensagem
+              </Link>
+              <Link href="https://linkedin.com/in/samuel-camargo" isExternal>
+                linkedin
+              </Link>
+              <Link href="https://github.com/samcamargoo" isExternal>
+                github
+              </Link>
             </VStack>
           </Flex>
         </Flex>
