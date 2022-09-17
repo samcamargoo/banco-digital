@@ -8,6 +8,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -18,7 +19,7 @@ import {
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Login } from "../models/Login";
-
+import {Link as ReachLink} from "react-router-dom"
 export function Navbar() {
   const { register, handleSubmit, reset } = useForm<Login>();
   const [password, setPassword] = useState<string>("");
@@ -29,9 +30,15 @@ export function Navbar() {
   return (
     <Flex alignItems="center" backgroundColor="teal" height="100px">
       <Flex>
+        <Link as={ReachLink} to="/"
+          _hover={{
+            textDecoration: "none"
+          }}
+        >
         <Heading size="md" ml={1} color="white">
           Banco Digital
         </Heading>
+        </Link>
         <Spacer />
       </Flex>
       <Spacer />
@@ -123,7 +130,9 @@ export function Navbar() {
                 />
               )}
             </Hide>
+            <Link as={ReachLink} to="/criar-conta">
             <Button colorScheme="teal">abra sua conta</Button>
+            </Link>
           </form>
         </HStack>
       </Flex>
