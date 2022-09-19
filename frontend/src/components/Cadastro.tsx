@@ -44,169 +44,174 @@ export function Cadastro() {
   return (
     <>
       <Navbar />
-      <Flex
-        justifyContent="center"
-        height="100%"
-        alignItems="center"
-        width="100wv"
-      >
-        <form onSubmit={handleSubmit(cadastrar)}>
-          <FormControl>
-            <FormLabel>Nome*</FormLabel>
-            <Input
-              type="text"
-              placeholder="Nome"
-              {...register("nome", {
-                required: 'O campo "Nome" é obrigatório',
-                minLength: {
-                  value: 2,
-                  message: 'O campo "Nome" precisa ter pelo menos 2 caracteres',
-                },
-              })}
+      <Flex justifyContent="center" alignItems="center" backgroundColor="black">
+        <Flex
+        >
+          <form onSubmit={handleSubmit(cadastrar)}>
+            <FormControl>
+              <FormLabel>Nome*</FormLabel>
+              <Input
+                type="text"
+                placeholder="Nome"
+                {...register("nome", {
+                  required: 'O campo "Nome" é obrigatório',
+                  minLength: {
+                    value: 2,
+                    message:
+                      'O campo "Nome" precisa ter pelo menos 2 caracteres',
+                  },
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="nome"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="nome"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
 
-          <FormControl>
-            <FormLabel>Email*</FormLabel>
-            <Input
-              type="text"
-              placeholder="Email"
-              {...register("email", {
-                required: 'O campo "Email" é obrigatório',
-                pattern: {
-                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                  message: "Email inválido",
-                },
-              })}
+            <FormControl>
+              <FormLabel>Email*</FormLabel>
+              <Input
+                type="text"
+                placeholder="Email"
+                {...register("email", {
+                  required: 'O campo "Email" é obrigatório',
+                  pattern: {
+                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                    message: "Email inválido",
+                  },
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="email"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
 
-          <FormControl>
-            <FormLabel>CPF*</FormLabel>
-            <Input
-              as={InputMask}
-              mask="999.999.999-99"
-              type="text"
-              placeholder="CPF"
-              {...register("cpf", { required: 'O campo "CPF" é obrigatório' })}
+            <FormControl>
+              <FormLabel>CPF*</FormLabel>
+              <Input
+                as={InputMask}
+                mask="999.999.999-99"
+                type="text"
+                placeholder="CPF"
+                {...register("cpf", {
+                  required: 'O campo "CPF" é obrigatório',
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="cpf"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="cpf"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-          <FormControl>
-            <FormLabel>Data de Nascimento*</FormLabel>
-            <Input
-              type="date"
-              {...register("dataNascimento", {
-                required: 'O campo "Data de Nascimento" é obrigatório',
-              })}
+            <FormControl>
+              <FormLabel>Data de Nascimento*</FormLabel>
+              <Input
+                type="date"
+                {...register("dataNascimento", {
+                  required: 'O campo "Data de Nascimento" é obrigatório',
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="dataNascimento"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="dataNascimento"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-          <FormControl>
-            <FormLabel>Senha*</FormLabel>
-            <Input
-              type="password"
-              placeholder="Senha"
-              {...register("password", {
-                required: 'O campo "Senha" é obrigatório',
-                minLength: {
-                  value: 3,
-                  message: "A senha deve ter no mínimo 3 caracteres",
-                },
-              })}
+            <FormControl>
+              <FormLabel>Senha*</FormLabel>
+              <Input
+                type="password"
+                placeholder="Senha"
+                {...register("password", {
+                  required: 'O campo "Senha" é obrigatório',
+                  minLength: {
+                    value: 3,
+                    message: "A senha deve ter no mínimo 3 caracteres",
+                  },
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-          <FormControl>
-            <FormLabel>Confirmar senha*</FormLabel>
-            <Input
-              type="password"
-              placeholder="Confirmar senha"
-              {...register("confirma_password", {
-                validate: (value) =>
-                  password.current === value || "Senhas não coincidem",
-              })}
+            <FormControl>
+              <FormLabel>Confirmar senha*</FormLabel>
+              <Input
+                type="password"
+                placeholder="Confirmar senha"
+                {...register("confirma_password", {
+                  validate: (value) =>
+                    password.current === value || "Senhas não coincidem",
+                })}
+              />
+            </FormControl>
+            <ErrorMessage
+              errors={errors}
+              name="confirma_password"
+              render={({ messages }) =>
+                messages &&
+                Object.entries(messages).map(([type, message]) => (
+                  <Text fontSize="10px" color="red" key={type}>
+                    {message}
+                  </Text>
+                ))
+              }
             />
-          </FormControl>
-          <ErrorMessage
-            errors={errors}
-            name="confirma_password"
-            render={({ messages }) =>
-              messages &&
-              Object.entries(messages).map(([type, message]) => (
-                <Text fontSize="10px" color="red" key={type}>
-                  {message}
-                </Text>
-              ))
-            }
-          />
-          <Flex mt={2}>
-            <HStack>
-              <Button colorScheme="red">Cancelar</Button>
+            <Flex mt={2}>
+              <HStack>
+                <Button colorScheme="red">Cancelar</Button>
 
-              <Button colorScheme="teal" type="submit" isLoading={buttonDisable}>
-                Cadastrar
-              </Button>
-            </HStack>
-          </Flex>
-        </form>
+                <Button
+                  colorScheme="teal"
+                  type="submit"
+                  isLoading={buttonDisable}
+                >
+                  Cadastrar
+                </Button>
+              </HStack>
+            </Flex>
+          </form>
+        </Flex>
       </Flex>
     </>
   );
