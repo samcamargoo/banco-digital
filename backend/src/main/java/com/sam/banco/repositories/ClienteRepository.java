@@ -10,5 +10,7 @@ import com.sam.banco.entities.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
 
 	Optional<Cliente> findByEmail(String emailUsuario);
+	boolean existsByCpf(String cpf);
+	boolean existsByEmail(String email);
 
 }

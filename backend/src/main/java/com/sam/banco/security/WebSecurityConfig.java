@@ -40,6 +40,8 @@ public class WebSecurityConfig {
 			
 		http.httpBasic().and().authorizeHttpRequests()
 			.antMatchers(HttpMethod.POST, "/api/v1/clientes").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/v1/clientes/verificar-cpf").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/v1/clientes/verificar-email").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/v1/login/**").permitAll()
 			.anyRequest().authenticated()
 			.and()

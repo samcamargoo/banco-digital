@@ -1,5 +1,7 @@
 package com.sam.banco.dtos;
 
+import java.time.LocalDate;
+
 import com.sam.banco.entities.Cliente;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ public class ClienteDto {
 
 	private String nome;
 	private String email;
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	private String cpf;
 	private ContaDto conta;
 	

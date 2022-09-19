@@ -1,5 +1,6 @@
 package com.sam.banco.entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -44,8 +46,9 @@ public class Cliente implements UserDetails {
 	@Column(nullable = false)
 	private String password;
 	@Column(nullable = false)
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	@Column(nullable = false, unique = true)
+	@CPF(message = "{cpf.not.valid}")
 	private String cpf;
 	
 	@OneToOne(mappedBy = "cliente")

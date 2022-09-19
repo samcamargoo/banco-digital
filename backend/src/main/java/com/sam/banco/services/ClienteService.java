@@ -1,5 +1,7 @@
 package com.sam.banco.services;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import com.sam.banco.dtos.ClienteDto;
 import com.sam.banco.entities.Cliente;
+import com.sam.banco.enums.RolesEnum;
 import com.sam.banco.repositories.ClienteRepository;
+import com.sam.banco.repositories.RoleRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -25,10 +29,15 @@ public class ClienteService {
 	private final ClienteRepository clienteRepository;
 	private final ContaService contaService;
 	private final PasswordEncoder passwordEncoder;
-
+	private final RoleRepository roleRepository;
 	@Transactional
 	public ResponseEntity<Object> criarConta(Cliente cliente) {
-
+		
+		if(cliente.getDataNascimento().isAfter(LocalDate.now())) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Data de nascimento inválida");
+		}
+		
+		cliente.setRoles(Arrays.asList(roleRepository.findRole(RolesEnum.ROLE_USER)));
 		cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
 		clienteRepository.save(cliente);
 		contaService.criarContaAoRegistrarUsuario(cliente);
@@ -45,5 +54,13 @@ public class ClienteService {
 		
 		UserDetails user = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return user;
+	}
+	
+	public boolean existsByCpf(String cpf) {
+		return clienteRepository.existsByCpf(cpf);
+	}
+	
+	public boolean existsByEmail(String email) {
+		return clienteRepository.existsByEmail(email);
 	}
 }
