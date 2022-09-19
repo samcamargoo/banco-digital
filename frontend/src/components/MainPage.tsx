@@ -17,7 +17,13 @@ import { BiTransfer, BiCreditCard } from "react-icons/bi";
 import "../assets/styles.css";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
+import { useEffect } from "react";
 export function MainPage() {
+
+  useEffect(() => {
+    document.title = "Mock - Banco Digital"
+  }, [])
+  
   return (
     <>
     <Navbar />
