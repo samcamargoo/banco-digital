@@ -20,7 +20,7 @@ import "../assets/styles.css";
 export function Footer() {
   return (
     <>
-      <Flex justifyContent="space-around" alignItems="center" backgroundColor="teal">
+      <Flex justifyContent="space-around" alignItems="center" backgroundColor="teal" flexDir={["column", "column", "column", "row"]}>
         <VStack>
           <Heading fontSize="sm">produtos</Heading>
           <Text>testando</Text>
