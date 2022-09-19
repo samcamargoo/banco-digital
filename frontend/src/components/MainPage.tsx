@@ -18,15 +18,15 @@ import "../assets/styles.css";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { useEffect } from "react";
+import { Link as ReachLink } from "react-router-dom";
 export function MainPage() {
-
   useEffect(() => {
-    document.title = "Mock - Banco Digital"
-  }, [])
-  
+    document.title = "Mock - Banco Digital";
+  }, []);
+
   return (
     <>
-    <Navbar />
+      <Navbar />
       {/*Header*/}
       <Flex justifyContent="center">
         <Flex maxWidth="800px" height="400px" alignItems="center">
@@ -39,13 +39,21 @@ export function MainPage() {
                 Faça parte do <Text color="teal">Mock Banco Digital</Text>
               </Text>
             </Heading>
-            <Button
-              borderRadius="2px"
-              size={["sm", "md", "md", "lg"]}
-              colorScheme="teal"
+            <Link
+              as={ReachLink}
+              to="/criar-conta"
+              _hover={{
+                textDecoration: "none",
+              }}
             >
-              Crie sua conta
-            </Button>
+              <Button
+                borderRadius="2px"
+                size={["sm", "md", "md", "lg"]}
+                colorScheme="teal"
+              >
+                Crie sua conta
+              </Button>
+            </Link>
           </VStack>
         </Flex>
       </Flex>
@@ -181,9 +189,6 @@ export function MainPage() {
           </section>
         </Flex>
       </main>
-
-      
-     
     </>
   );
 }

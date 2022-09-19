@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Cadastro } from "./components/Cadastro";
 import { Flex } from "@chakra-ui/react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         </Routes>
         <Footer />
       </Flex>
+      <ToastContainer />
     </>
   );
 }

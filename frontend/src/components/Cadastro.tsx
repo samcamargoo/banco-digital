@@ -19,8 +19,11 @@ import { CadastroUsuario } from "../models/CadastroUsuario";
 import { Navbar } from "./Navbar";
 import { useState, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
-import { cadastrarCliente } from "../services/ClienteService";
+import { cadastrarCliente, checarCpfExistente, checarEmailExistente } from "../services/ClienteService";
 import { Footer } from "./Footer";
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.min.css';
 export function Cadastro() {
   const {
     register,
@@ -28,42 +31,86 @@ export function Cadastro() {
     watch,
     formState: { errors, isSubmitting },
   } = useForm<CadastroUsuario>({ criteriaMode: "all" });
-  const [senhaConfirmada, setSenhaConfirmada] = useState<string>();
-  console.log(isSubmitting);
+
+  const [cpf, setCpf] = useState<boolean>(false);
+  const [email, setEmail] = useState<boolean>(false);
   const password = useRef({});
   password.current = watch("password", "");
 
   const [buttonDisable, setButtonDisable] = useState<boolean>(false);
-
+  const navigate = useNavigate();
+  const documentoCpf = document.getElementById('cpf') as HTMLInputElement
+  const documentoEmail = document.getElementById('email') as HTMLInputElement
   const cadastrar: SubmitHandler<CadastroUsuario> = (data: CadastroUsuario) => {
+   
     setButtonDisable(true);
     cadastrarCliente(data)
       .then((res) => {
-        console.log("sucesso");
         setButtonDisable(false);
+        toast.success("Cadastrado com sucesso!")
       })
       .catch((error) => {
-        console.log("error");
+        setButtonDisable(false);
+        toast.error(error.response.data);
       });
   };
+
+  function checarEmail(e: string) {
+    setEmail(false)
+    checarEmailExistente(e).then(res => {
+      if(res.data) {
+        setEmail(true);
+        documentoEmail.style.borderColor = "red"
+      }
+    })
+  }
+
+  function checarCPF(e: string) {
+    setCpf(false)
+    checarCpfExistente(e).then(res => {
+      if(res.data) {
+       setCpf(true);
+        documentoCpf.style.borderColor = "red"
+      }
+    }).catch(error =>{
+      console.log(error);
+    });
+  }
+  function cancel() {
+    navigate("/")
+  }
   return (
     <>
       <Navbar />
-      <Flex justifyContent={["center", "center", "center", "space-around"]} alignItems="center" height="100%" p={4}>
+      <Flex
+        justifyContent={["center", "center", "center", "space-around"]}
+        alignItems="center"
+        height="100%"
+        p={4}
+      >
         <Hide below="lg">
-        <Flex maxWidth="400px" flexDir="column">
-          <Heading fontSize="20px">Vantagens de ter uma conta no Mock Banco Digital</Heading>
-          <Text mt={2}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper posuere tempor. Morbi sodales eros nunc, vel convallis mi scelerisque at. Integer blandit tortor quis cursus consectetur. Ut ac lacus eget sapien faucibus gravida. Sed mattis lectus augue, non hendrerit dui imperdiet eu. Integer ac nibh odio. Mauris rhoncus accumsan sagittis.</Text>
-        </Flex>
-        <Flex height="300px">
-          <Divider orientation="vertical"/>
-        </Flex>
+          <Flex maxWidth="400px" flexDir="column">
+            <Heading fontSize="20px">
+              Vantagens de ter uma conta no Mock Banco Digital
+            </Heading>
+            <Text mt={2}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+              semper posuere tempor. Morbi sodales eros nunc, vel convallis mi
+              scelerisque at. Integer blandit tortor quis cursus consectetur. Ut
+              ac lacus eget sapien faucibus gravida. Sed mattis lectus augue,
+              non hendrerit dui imperdiet eu. Integer ac nibh odio. Mauris
+              rhoncus accumsan sagittis.
+            </Text>
+          </Flex>
+          <Flex height="300px">
+            <Divider orientation="vertical" />
+          </Flex>
         </Hide>
         <form onSubmit={handleSubmit(cadastrar)}>
           <FormControl>
             <FormLabel>Nome*</FormLabel>
             <Input
-            width={["max-content", "200px", "200px", "400px"]}
+              width={["max-content", "200px", "200px", "400px"]}
               type="text"
               placeholder="Nome"
               {...register("nome", {
@@ -91,6 +138,7 @@ export function Cadastro() {
           <FormControl>
             <FormLabel>Email*</FormLabel>
             <Input
+            id="email"
               type="text"
               placeholder="Email"
               {...register("email", {
@@ -100,8 +148,11 @@ export function Cadastro() {
                   message: "Email inválido",
                 },
               })}
+              onBlur={(e) => checarEmail(e.target.value)}
+              onFocus={() => documentoEmail.style.borderColor = ""}
             />
           </FormControl>
+          {email ? (<Text fontSize="10px" color="red">Este email já está em uso. Tente outro.</Text>): <Text></Text>}
           <ErrorMessage
             errors={errors}
             name="email"
@@ -118,6 +169,7 @@ export function Cadastro() {
           <FormControl>
             <FormLabel>CPF*</FormLabel>
             <Input
+            id="cpf"
               as={InputMask}
               mask="999.999.999-99"
               type="text"
@@ -125,8 +177,14 @@ export function Cadastro() {
               {...register("cpf", {
                 required: 'O campo "CPF" é obrigatório',
               })}
+              onBlur={(e) => checarCPF(e.target.value)}
+              onFocus={() => {
+                
+                documentoCpf.style.borderColor = ""
+              }}
             />
           </FormControl>
+          {cpf ? (<Text color="red" fontSize="10px">CPF em uso</Text>) : (<Text></Text>)}
           <ErrorMessage
             errors={errors}
             name="cpf"
@@ -143,9 +201,11 @@ export function Cadastro() {
             <FormLabel>Data de Nascimento*</FormLabel>
             <Input
               type="date"
+             
               placeholder="Data de Nascimento"
               {...register("dataNascimento", {
                 required: 'O campo "Data de Nascimento" é obrigatório',
+                
               })}
             />
           </FormControl>
@@ -156,7 +216,7 @@ export function Cadastro() {
               messages &&
               Object.entries(messages).map(([type, message]) => (
                 <Text fontSize="10px" color="red" key={type}>
-                  {message}
+                  {message} min={new Date().toISOString().split('T')[0]}
                 </Text>
               ))
             }
@@ -212,9 +272,10 @@ export function Cadastro() {
           />
           <Flex mt={2}>
             <HStack>
-              <Button colorScheme="red">Cancelar</Button>
+              <Button colorScheme="red" onClick={cancel}>Cancelar</Button>
 
               <Button
+                disabled={cpf || email}
                 colorScheme="teal"
                 type="submit"
                 isLoading={buttonDisable}
