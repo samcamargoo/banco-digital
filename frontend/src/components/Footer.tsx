@@ -28,6 +28,9 @@ export function Footer() {
           justifyContent="space-around"
           alignItems={["center", "center", "center", "center"]}
           color="white"
+        position="absolute"
+        width="100%"
+       
         >
           <Flex mb={["15px", "15px", "15px", "0"]}>
             <VStack>
