@@ -46,7 +46,7 @@ export function Cadastro() {
       <Navbar />
       <Flex
         justifyContent="center"
-        height="100vh"
+        height="100%"
         alignItems="center"
         width="100wv"
       >
