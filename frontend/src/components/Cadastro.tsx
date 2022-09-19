@@ -44,7 +44,7 @@ export function Cadastro() {
   return (
     <>
       <Navbar />
-      <Flex justifyContent="center" alignItems="center" backgroundColor="black">
+      <Flex justifyContent="center" alignItems="center" mb={2}>
         <Flex
         >
           <form onSubmit={handleSubmit(cadastrar)}>
