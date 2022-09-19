@@ -44,7 +44,7 @@ export function Cadastro() {
   return (
     <>
       <Navbar />
-      <Flex justifyContent="center" alignItems="center" mb={2}>
+      <Flex justifyContent="center" alignItems="center" mb={2} height="100%" position="relative">
         <Flex
         >
           <form onSubmit={handleSubmit(cadastrar)}>
@@ -131,6 +131,7 @@ export function Cadastro() {
               <FormLabel>Data de Nascimento*</FormLabel>
               <Input
                 type="date"
+                placeholder="Data de Nascimento"
                 {...register("dataNascimento", {
                   required: 'O campo "Data de Nascimento" é obrigatório',
                 })}
