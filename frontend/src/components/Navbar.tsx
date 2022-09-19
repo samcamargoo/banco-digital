@@ -46,7 +46,7 @@ export function Navbar() {
       <Spacer />
       <Flex mr={1}>
         <HStack>
-          <Show below="md">
+          <Show below="lg">
             <Menu>
               <MenuButton
                 as={IconButton}
