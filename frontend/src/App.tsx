@@ -10,16 +10,15 @@ import { Flex } from "@chakra-ui/react";
 function App() {
   return (
     <>
-    <Flex justifyContent="space-between" flexDir="column" height="100vh">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/criar-conta" element={<Cadastro />} />
-        </Route>
-      </Routes>
-    <Footer />
+      <Flex minHeight="100vh" flexDir="column" justifyContent="space-between">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/criar-conta" element={<Cadastro />} />
+          </Route>
+        </Routes>
+        <Footer />
       </Flex>
-      
     </>
   );
 }

@@ -20,7 +20,27 @@ import "../assets/styles.css";
 export function Footer() {
   return (
     <>
-     
+      <Flex justifyContent="space-around" alignItems="center" backgroundColor="teal">
+        <VStack>
+          <Heading fontSize="sm">produtos</Heading>
+          <Text>testando</Text>
+          <Text>testando</Text>
+          <Text>testando</Text>
+        </VStack>
+        <VStack>
+          <Heading fontSize="sm">produtos</Heading>
+          <Text>testando</Text>
+          <Text>testando</Text>
+          <Text>testando</Text>
+        </VStack>
+
+        <VStack>
+          <Heading fontSize="sm">produtos</Heading>
+          <Text>testando</Text>
+          <Text>testando</Text>
+          <Text>testando</Text>
+        </VStack>
+      </Flex>
     </>
   );
 }

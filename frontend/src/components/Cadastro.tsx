@@ -16,6 +16,7 @@ import { Navbar } from "./Navbar";
 import { useState, useRef } from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import { cadastrarCliente } from "../services/ClienteService";
+import { Footer } from "./Footer";
 export function Cadastro() {
   const {
     register,
@@ -44,9 +45,8 @@ export function Cadastro() {
   return (
     <>
       <Navbar />
-      <Flex justifyContent="center" alignItems="center" mb={2} height="100%" position="relative">
-        <Flex
-        >
+      <Flex justifyContent="center" alignItems="center" mb={2}>
+        <Flex>
           <form onSubmit={handleSubmit(cadastrar)}>
             <FormControl>
               <FormLabel>Nome*</FormLabel>
