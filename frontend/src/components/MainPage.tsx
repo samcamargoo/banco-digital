@@ -26,7 +26,7 @@ export function MainPage() {
 
   return (
     <>
-      <Navbar />
+      
       {/*Header*/}
       <Flex justifyContent="center">
         <Flex maxWidth="800px" height="400px" alignItems="center">

@@ -12,6 +12,7 @@ function App() {
   return (
     <>
       <Flex minHeight="100vh" flexDir="column" justifyContent="space-between">
+      <Navbar />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<MainPage />} />

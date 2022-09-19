@@ -81,7 +81,7 @@ export function Cadastro() {
   }
   return (
     <>
-      <Navbar />
+      
       <Flex
         justifyContent={["center", "center", "center", "space-around"]}
         alignItems="center"
