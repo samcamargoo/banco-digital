@@ -46,7 +46,7 @@ export function Navbar() {
       <Spacer />
       <Flex mr={1}>
         <HStack>
-          <Show below="lg">
+          <Show breakpoint="(max-width: 600px)">
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -97,7 +97,7 @@ export function Navbar() {
             </Menu>
           </Show>
           <form>
-            <Hide below="md">
+            <Hide breakpoint="(max-width: 600px)">
               <Input
                 width="250px"
                 height="40px"
