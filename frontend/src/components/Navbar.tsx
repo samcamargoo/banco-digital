@@ -14,37 +14,43 @@ import {
   MenuList,
   Show,
   Spacer,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Login } from "../models/Login";
-import { Link as ReachLink } from "react-router-dom";
+import { LoginUsuario } from "../models/LoginUsuario";
+import { Link as ReachLink, Navigate } from "react-router-dom";
+import { loginDeUsuario } from "../services/LoginService";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "../services/Api";
 export function Navbar() {
-  const { register, handleSubmit, reset } = useForm<Login>();
+  const { register, handleSubmit, reset } = useForm<LoginUsuario>();
+  const [usuario, setUsuario] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  const login: SubmitHandler<Login> = (data: Login) => {
-    console.log("entrou");
+  const navigate = useNavigate();
+  
+  const { setAuth } = useAuth();
+  const { auth } = useAuth();
+  const login: SubmitHandler<LoginUsuario> = (data: LoginUsuario) => {
+    loginDeUsuario(data)
+      .then((res) => {
+        const tokenJwt = res.data.token
+        setToken(tokenJwt)
+        setAuth({ usuario, password, tokenJwt });
+        navigate("/conta");
+        reset();
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  return (
-    <Flex alignItems="center" backgroundColor="teal" height="100px">
-      <Flex>
-        <Link
-          as={ReachLink}
-          to="/"
-          _hover={{
-            textDecoration: "none",
-          }}
-        >
-          <Heading size="md" ml={1} color="white">
-            Banco Digital
-          </Heading>
-        </Link>
-        <Spacer />
-      </Flex>
-      <Spacer />
-      <Flex mr={1}>
+
+  function displayNaoLogado() {
+    return (
+      <>
         <HStack>
           <Show below="md">
             <Menu>
@@ -64,6 +70,7 @@ export function Navbar() {
                           type="text"
                           placeholder="Email"
                           {...register("email")}
+                          onChange={(e) => setUsuario(e.target.value)}
                         />
                       </FormControl>
                       <FormControl>
@@ -96,7 +103,7 @@ export function Navbar() {
               </MenuList>
             </Menu>
           </Show>
-          <form>
+          <form onSubmit={handleSubmit(login)}>
             <Hide below="md">
               <Input
                 width="250px"
@@ -106,6 +113,7 @@ export function Navbar() {
                 placeholder="Email"
                 mr={1}
                 {...register("email")}
+                onChange={(e) => setUsuario(e.target.value)}
               />
               <Input
                 width="100px"
@@ -143,7 +151,61 @@ export function Navbar() {
             </Link>
           </form>
         </HStack>
+      </>
+    );
+  }
+  function deslogarUsuario() {
+    setAuth({});
+    navigate("/");
+  }
+  function displayLogado() {
+    return (
+      <>
+        <Flex flexDir="column" pr={2} color="white">
+          <Text fontWeight="semibold">Conta: 000001</Text>
+          <Text fontWeight="semibold">Saldo: R$ 2.000,00</Text>
+          <Link onClick={deslogarUsuario}>Sair</Link>
+        </Flex>
+      </>
+    );
+  }
+  return (
+    <Flex alignItems="center" backgroundColor="teal" height="100px">
+      <Flex>
+        {auth.usuario ? (
+          <>
+            <Link
+              as={ReachLink}
+              to="/conta"
+              _hover={{
+                textDecoration: "none",
+              }}
+            >
+              <Heading size="md" ml={1} color="white">
+                Banco Digital
+              </Heading>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              as={ReachLink}
+              to="/"
+              _hover={{
+                textDecoration: "none",
+              }}
+            >
+              <Heading size="md" ml={1} color="white">
+                Banco Digital
+              </Heading>
+            </Link>
+          </>
+        )}
+
+        <Spacer />
       </Flex>
+      <Spacer />
+      <Flex mr={1}>{auth.usuario ? displayLogado() : displayNaoLogado()}</Flex>
     </Flex>
   );
 }

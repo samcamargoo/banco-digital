@@ -3,7 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { extendTheme } from "@chakra-ui/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthProvider";
 
 const theme = extendTheme({
   fonts: {
@@ -14,8 +15,12 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <App />
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

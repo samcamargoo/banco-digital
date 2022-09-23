@@ -21,13 +21,13 @@ export function Footer() {
   return (
     <>
       <Flex justifyContent="space-around" alignItems="center" backgroundColor="teal" flexDir={["column", "column", "column", "row"]} color="white" p={10}>
-        <VStack>
+        <VStack pb={["10", "2", "2", "0"]}>
           <Heading fontSize="sm">produtos</Heading>
           <Text>conta</Text>
           <Text>cartão de crédito</Text>
           <Text>empréstimos</Text>
         </VStack>
-        <VStack>
+        <VStack pb={["10", "2", "2", "0"]}>
           <Heading fontSize="sm">Mock Banco Digital</Heading>
           <Text>sobre o projeto</Text>
           <Text>sobre o desenvolvedor</Text>
