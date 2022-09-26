@@ -1,6 +1,7 @@
 package com.sam.banco.dtos;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,15 +17,20 @@ import lombok.NoArgsConstructor;
 public class BoletoDto {
 
 	
-	private BigDecimal valor;
+	private String valor;
+	private String codigoDeBarras;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime geradoEm;
 	private ClienteDto clienteDto;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate validade;
 	
 	public BoletoDto(Boleto boleto) {
-		this.valor = boleto.getValor();
+		this.valor = boleto.getValor().toString();
 		this.geradoEm = boleto.getGeradoEm();
 		this.clienteDto = new ClienteDto(boleto.getCliente());
+		this.validade = boleto.getValidade();
+		this.codigoDeBarras = boleto.getCodigoDeBarras();
 	}
 }
 
