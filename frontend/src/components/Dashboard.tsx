@@ -24,6 +24,7 @@ export function Dashboard() {
             <Heading fontSize="20px">Boletos</Heading>
             <Link as={ReachLink} to="pagar-boleto">Pagar conta</Link>
             <Link as={ReachLink} to="gerar-boleto">Gerar boleto</Link>
+            <Link as={ReachLink} to="#">Consulte seus boletos gerados</Link>
           </Flex>
         </Flex>
 
