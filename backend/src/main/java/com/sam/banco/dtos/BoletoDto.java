@@ -24,6 +24,7 @@ public class BoletoDto {
 	private ClienteDto clienteDto;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate validade;
+	private String descricao;
 	
 	public BoletoDto(Boleto boleto) {
 		this.valor = boleto.getValor().toString();
@@ -31,6 +32,8 @@ public class BoletoDto {
 		this.clienteDto = new ClienteDto(boleto.getCliente());
 		this.validade = boleto.getValidade();
 		this.codigoDeBarras = boleto.getCodigoDeBarras();
+		this.descricao = boleto.getDescricao();
+		
 	}
 }
 

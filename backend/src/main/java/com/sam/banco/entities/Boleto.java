@@ -33,6 +33,7 @@ public class Boleto {
 	private LocalDateTime geradoEm;
 	private LocalDateTime pagoEm;
 	private LocalDate validade;
+	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")

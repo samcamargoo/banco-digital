@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.sam.banco.dtos.BoletoDto;
 import com.sam.banco.dtos.BoletoPagamentoDto;
 import com.sam.banco.dtos.BoletoPagoInformacoes;
+import com.sam.banco.dtos.GerarBoletoDto;
 import com.sam.banco.entities.Boleto;
 import com.sam.banco.entities.Cliente;
 import com.sam.banco.repositories.BoletoRepository;
@@ -36,11 +37,13 @@ public class BoletoService {
 	private final ClienteRepository clienteRepository;
 	private final PasswordEncoder passwordEncoder;
 	@Transactional
-	public ResponseEntity<Object> gerarBoleto(Boleto boleto) {
+	public ResponseEntity<Object> gerarBoleto(GerarBoletoDto boletoDto) {
 
 		UserDetails usuario = clienteService.getUsuarioLogado();
 		Optional<Cliente> cliente = clienteRepository.findByEmail(usuario.getUsername());
 
+		var boleto = new Boleto();
+		boleto.setValor(boletoDto.getValor());
 		boleto.setCliente(cliente.get());
 		boleto.setGeradoEm(LocalDateTime.now());
 		boleto.setCodigoDeBarras(gerarCodigoDeBarras());
@@ -51,10 +54,12 @@ public class BoletoService {
 			boleto.setValidade(boleto.getValidade().plusDays(1));
 		}
 
-		var boletoDto = new BoletoDto();
-		BeanUtils.copyProperties(boleto, boletoDto);
+		var retornoDto = new BoletoDto();
+		BeanUtils.copyProperties(boleto, retornoDto);
+		retornoDto.setValor(formatarValor(boleto.getValor()));
+		retornoDto.setDescricao(boletoDto.getDescricao());
 		boletoRepository.save(boleto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(boletoDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(retornoDto);
 	}
 
 	public String gerarCodigoDeBarras() {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sam.banco.dtos.BoletoPagamentoDto;
-import com.sam.banco.entities.Boleto;
+import com.sam.banco.dtos.GerarBoletoDto;
 import com.sam.banco.services.BoletoService;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class BoletoController {
 	private final BoletoService boletoService;
 
 	@PostMapping
-	public ResponseEntity<Object> gerarBoleto(@RequestBody Boleto boleto) {
+	public ResponseEntity<Object> gerarBoleto(@RequestBody GerarBoletoDto boleto) {
 		return boletoService.gerarBoleto(boleto);
 	}
 
