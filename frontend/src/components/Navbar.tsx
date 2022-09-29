@@ -6,6 +6,7 @@ import {
   Heading,
   Hide,
   HStack,
+  Icon,
   IconButton,
   Input,
   Link,
@@ -17,7 +18,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginUsuario } from "../models/LoginUsuario";
 import { Link as ReachLink, Navigate } from "react-router-dom";
@@ -25,23 +26,40 @@ import { loginDeUsuario } from "../services/LoginService";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../services/Api";
+import { listarInfoCliente } from "../services/ClienteService";
+import { Conta } from "../models/Conta";
+import { CgProfile } from "react-icons/cg";
 export function Navbar() {
   const { register, handleSubmit, reset } = useForm<LoginUsuario>();
   const [usuario, setUsuario] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [conta, setConta] = useState<Conta>();
   const navigate = useNavigate();
-  
+  const [isLogado, setIsLogado] = useState<boolean>(false);
   const { setAuth } = useAuth();
   const { auth } = useAuth();
+
+  function getClienteInfo() {
+    listarInfoCliente(usuario).then((res) => {
+      setConta(res.data);
+    });
+  }
+
+  useEffect(() => {
+    if (isLogado) {
+      getClienteInfo();
+    }
+  }, [isLogado]);
+
   const login: SubmitHandler<LoginUsuario> = (data: LoginUsuario) => {
     loginDeUsuario(data)
       .then((res) => {
-        const tokenJwt = res.data.token
-        setToken(tokenJwt)
+        const tokenJwt = res.data.token;
+        setToken(tokenJwt);
         setAuth({ usuario, password, tokenJwt });
         navigate("/conta");
+        setIsLogado(true);
         reset();
-        
       })
       .catch((error) => {
         console.log(error);
@@ -157,13 +175,23 @@ export function Navbar() {
   function deslogarUsuario() {
     setAuth({});
     navigate("/");
+    setIsLogado(false);
   }
   function displayLogado() {
     return (
       <>
-        <Flex flexDir="column" pr={2} color="white">
-          <Text fontWeight="semibold">Conta: 000001</Text>
-          <Text fontWeight="semibold">Saldo: R$ 2.000,00</Text>
+        <Flex alignItems="center" flexDir="column" pr={2} color="white">
+          <Flex alignItems="center">
+            <IconButton
+              aria-label="profile"
+              variant="ghost"
+              fontSize="20px"
+              icon={<CgProfile />}
+              _hover={{}}
+              _active={{}}
+            ></IconButton>
+            
+          </Flex>
           <Link onClick={deslogarUsuario}>Sair</Link>
         </Flex>
       </>

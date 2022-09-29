@@ -1,45 +1,62 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Button,
+  Divider,
   Flex,
   Heading,
   Link,
   Menu,
   MenuButton,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import {Link as ReachLink} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link as ReachLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { Conta } from "../models/Conta";
+import { listarInfoCliente } from "../services/ClienteService";
+import { Atividade } from "./Atividade";
 
 export function Dashboard() {
+  const [conta, setConta] = useState<Conta>();
+  const { auth } = useAuth();
+
+  useEffect(() => {
+    listarInfoCliente(auth.usuario)
+      .then((res) => {
+        setConta(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Flex
-        height="200px"
+        height="500px"
         justifyContent="space-around"
         flexDir={["column", "column", "column", "row"]}
-        alignItems="center"
+        p={1}
+        alignItems={["center"]}
       >
-        <Flex>
-          <Flex flexDir="column" alignItems="center">
-            <Heading fontSize="20px">Boletos</Heading>
-            <Link as={ReachLink} to="pagar-boleto">Pagar conta</Link>
-            <Link as={ReachLink} to="gerar-boleto">Gerar boleto</Link>
-            <Link as={ReachLink} to="#">Consulte seus boletos gerados</Link>
-          </Flex>
+        <Flex
+          alignItems="center"
+          flexDir="column"
+          boxShadow="rgba(0, 0, 0, 0.15) 0px 2px 8px;"
+          width={["390px"]}
+          height="300px"
+          borderRadius={7}
+          justifyContent="center"
+        >
+          <Text fontSize="14px">Saldo disponível</Text>
+          <Heading fontSize="16px">{conta?.saldo}</Heading>
+
+          <Text fontSize="14px">Conta: </Text>
+          <Heading fontSize="16px">{conta?.numero}</Heading>
         </Flex>
 
-
-        <Flex>
-          <Flex flexDir="column"  alignItems="center">
-            <Heading fontSize="20px">Transferências</Heading>
-            <Text>Pagar conta</Text>
-            <Text>Gerar boleto</Text>
-          </Flex>
-        </Flex>
-
-        <Flex backgroundColor="blue">basdasdasda</Flex>
-        <Flex backgroundColor="yellow">aasdasdas</Flex>
-        <Flex backgroundColor="red">basdasdasd</Flex>
+          <Atividade />
       </Flex>
     </>
   );

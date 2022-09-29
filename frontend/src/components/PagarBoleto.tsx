@@ -69,7 +69,7 @@ export function PagarBoleto() {
 
   return (
     <>
-      <Flex justifyContent="center">
+      <Flex justifyContent="center" height="500px" alignItems="center">
         <Flex height="300px" alignItems="center">
           {isLoading ? <Spinner /> : <></>}
 

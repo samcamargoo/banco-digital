@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import { RequireAuth } from "./components/RequireAuth";
 import { PagarBoleto } from "./components/PagarBoleto";
 import { GerarBoleto } from "./components/GerarBoleto";
+import { Transferencia } from "./components/Transferencia";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path="/conta" element={<Dashboard />} />
               <Route path="conta/pagar-boleto" element={<PagarBoleto />} />
               <Route path="conta/gerar-boleto" element={<GerarBoleto />} />
+              <Route path="conta/transferencia" element={<Transferencia />} />
             </Route>
           </Route>
         </Routes>
