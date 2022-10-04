@@ -9,7 +9,16 @@ import { AuthProvider } from "./context/AuthProvider";
 const theme = extendTheme({
   fonts: {
     heading: `'Inter', sans-serif`,
+    body: `'Roboto', sans-serif`
+    
   },
+  components: {
+    Button: {
+      baseStyle: {
+        fontFamily: 'Inter'
+      }
+    }
+  }
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

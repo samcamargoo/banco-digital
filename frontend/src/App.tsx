@@ -1,6 +1,7 @@
 import { MainPage } from "./components/MainPage";
 import { Navbar } from "./components/Navbar";
 import "@fontsource/inter/700.css";
+import "@fontsource/roboto/400.css";
 import { Footer } from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
@@ -19,19 +20,21 @@ function App() {
     <>
       <Flex minHeight="100vh" flexDir="column" justifyContent="space-between">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/criar-conta" element={<Cadastro />} />
+        <body>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/criar-conta" element={<Cadastro />} />
 
-            <Route element={<RequireAuth />}>
-              <Route path="/conta" element={<Dashboard />} />
-              <Route path="conta/pagar-boleto" element={<PagarBoleto />} />
-              <Route path="conta/gerar-boleto" element={<GerarBoleto />} />
-              <Route path="conta/transferencia" element={<Transferencia />} />
+              <Route element={<RequireAuth />}>
+                <Route path="/conta" element={<Dashboard />} />
+                <Route path="conta/pagar-boleto" element={<PagarBoleto />} />
+                <Route path="conta/gerar-boleto" element={<GerarBoleto />} />
+                <Route path="conta/transferencia" element={<Transferencia />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </body>
 
         <Footer />
       </Flex>

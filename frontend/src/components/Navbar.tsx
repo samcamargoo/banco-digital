@@ -55,6 +55,7 @@ export function Navbar() {
     loginDeUsuario(data)
       .then((res) => {
         const tokenJwt = res.data.token;
+        console.log(res.data)
         setToken(tokenJwt);
         setAuth({ usuario, password, tokenJwt });
         navigate("/conta");
