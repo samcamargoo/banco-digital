@@ -36,10 +36,12 @@ public class BoletoService {
 	private final ClienteService clienteService;
 	private final ClienteRepository clienteRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final AtividadeService atividadeService;
+	
 	@Transactional
 	public ResponseEntity<Object> gerarBoleto(GerarBoletoDto boletoDto) {
 
-		UserDetails usuario = clienteService.getUsuarioLogado();
+		UserDetails usuario = ClienteService.getUsuarioLogado();
 		Optional<Cliente> cliente = clienteRepository.findByEmail(usuario.getUsername());
 
 		var boleto = new Boleto();
@@ -48,7 +50,7 @@ public class BoletoService {
 		boleto.setGeradoEm(LocalDateTime.now());
 		boleto.setCodigoDeBarras(gerarCodigoDeBarras());
 		boleto.setValidade(LocalDate.now().plusDays(7));
-
+		boleto.setDescricao(boletoDto.getDescricao());
 		/* Se o boleto vencer num domingo, adicione mais um dia */
 		if (boleto.getValidade().getDayOfWeek() == DayOfWeek.SUNDAY) {
 			boleto.setValidade(boleto.getValidade().plusDays(1));
@@ -76,7 +78,7 @@ public class BoletoService {
 	public ResponseEntity<Object> pagarBoleto(BoletoPagamentoDto boletoPagamentoDto) {
 		
 		/* Obtendo usuario logado no sistema */
-		UserDetails usuario = clienteService.getUsuarioLogado();
+		UserDetails usuario = ClienteService.getUsuarioLogado();
 
 		/* Usuário que esta pagando o boleto */
 		Optional<Cliente> clienteOptional = clienteRepository.findByEmail(usuario.getUsername());
@@ -135,6 +137,8 @@ public class BoletoService {
 		boletoRepository.save(boletoOptional.get());
 		/* Prosseguimos para salvar o saldo da conta */
 		clienteRepository.save(clienteOptional.get());
+		/*Salvando atividade para usar no extrato*/
+		atividadeService.registrarAtividade("boleto", formatarValor(boletoOptional.get().getValor()), boletoOptional.get());
 		
 		/*Aqui montaremos o objeto de retorno*/
 		var boletoPagoInformacoes = new BoletoPagoInformacoes();
@@ -167,4 +171,5 @@ public class BoletoService {
 		return NumberFormat.getCurrencyInstance().format(valor);
 		
 	}
+	
 }

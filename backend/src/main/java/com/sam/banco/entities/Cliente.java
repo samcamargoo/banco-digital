@@ -55,6 +55,8 @@ public class Cliente implements UserDetails {
 	private Conta conta;
 	
 	@OneToMany(mappedBy = "cliente")
+	private List<Atividade> atividades = new ArrayList<>();
+	@OneToMany(mappedBy = "cliente")
 	private List<Boleto> boletos = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -114,7 +114,7 @@ export function Cadastro() {
             <Heading fontSize="20px">
               Vantagens de ter uma conta no Mock Banco Digital
             </Heading>
-            <Text mt={2}>
+            <Text mt={2} color="#a8a8b3">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
               semper posuere tempor. Morbi sodales eros nunc, vel convallis mi
               scelerisque at. Integer blandit tortor quis cursus consectetur. Ut
@@ -128,9 +128,8 @@ export function Cadastro() {
           </Flex>
         </Hide>
 
-        <Flex flexDir="column">
+        <Flex flexDir="column" color="rgb(130, 87, 230)">
           <Link
-            color="teal"
             mb={1}
             _hover={{
               textDecoration: "none",
@@ -140,235 +139,251 @@ export function Cadastro() {
             <Flex alignItems="center">
               <Icon as={AiOutlineArrowLeft} mr={5} />
 
-              <Text>voltar para a página inicial</Text>
+              <Text color="rgb(130, 87, 230)">
+                voltar para a página inicial
+              </Text>
             </Flex>
           </Link>
-          <form onSubmit={handleSubmit(cadastrar)}>
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineUser />}
-                />
-                <Input
-                  width={["max-content", "200px", "200px", "400px"]}
-                  type="text"
-                  placeholder="Seu nome"
-                  mb={1}
-                  {...register("nome", {
-                    required: 'O campo "Nome" é obrigatório',
-                    pattern: {
-                      value: /[A-Za-z]/g,
-                      message: "Somente caracteres de a-Z"
-                    },
-                    minLength: {
-                      value: 2,
-                      message:
-                        'O campo "Nome" precisa ter pelo menos 2 caracteres',
-                    },
-                  })}
-                />
-              </InputGroup>
-            </FormControl>
-            <ErrorMessage
-              errors={errors}
-              name="nome"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
 
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineMail />}
-                />
-                <Input
-                  id="email"
-                  type="text"
-                  placeholder="Seu E-mail"
-                  mb={1}
-                  {...register("email", {
-                    required: 'O campo "Email" é obrigatório',
-                    pattern: {
-                      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-                      message: "Email inválido",
-                    },
-                  })}
-                  onBlur={(e) => checarEmail(e.target.value)}
-                  onFocus={() => (documentoEmail.style.borderColor = "")}
-                />
-              </InputGroup>
-            </FormControl>
-            {email ? (
-              <Text fontSize="10px" color="red">
-                Este email já está em uso. Tente outro.
-              </Text>
-            ) : (
-              <Text></Text>
-            )}
-            <ErrorMessage
-              errors={errors}
-              name="email"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
+          <Flex
+            height="500px"
+            backgroundColor="rgb(32, 32, 36)"
+            borderRadius="7px"
+            width="480px"
+            justifyContent="space-around"
+            p={35}
+            flexDir="column"
+          >
+            <Heading>crie sua conta</Heading>
+            <form onSubmit={handleSubmit(cadastrar)}>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineUser />}
+                  />
+                  <Input
+                    
+                    type="text"
+                    placeholder="Seu nome"
+                    mb={1}
+                    {...register("nome", {
+                      required: 'O campo "Nome" é obrigatório',
+                      pattern: {
+                        value: /[A-Za-z]/g,
+                        message: "Somente caracteres de a-Z",
+                      },
+                      minLength: {
+                        value: 2,
+                        message:
+                          'O campo "Nome" precisa ter pelo menos 2 caracteres',
+                      },
+                    })}
+                  />
+                </InputGroup>
+              </FormControl>
+              <ErrorMessage
+                errors={errors}
+                name="nome"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
 
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineCreditCard />}
-                />
-                <Input
-                  id="cpf"
-                  as={InputMask}
-                  mask="999.999.999-99"
-                  type="text"
-                  placeholder="Seu CPF"
-                  mb={1}
-                  {...register("cpf", {
-                    required: 'O campo "CPF" é obrigatório',
-                  })}
-                  onBlur={(e) => checarCPF(e.target.value)}
-                  onFocus={() => {
-                    documentoCpf.style.borderColor = "";
-                  }}
-                />
-              </InputGroup>
-            </FormControl>
-            {cpf ? (
-              <Text color="red" fontSize="10px">
-                CPF em uso
-              </Text>
-            ) : (
-              <Text></Text>
-            )}
-            <ErrorMessage
-              errors={errors}
-              name="cpf"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineCalendar />}
-                />
-                <Input
-                  as={InputMask}
-                  mask="99/99/9999"
-                  placeholder="Sua data de nascimento"
-                  mb={1}
-                  {...register("dataNascimento", {
-                    required: 'O campo "Data de Nascimento" é obrigatório',
-                  })}
-                />
-              </InputGroup>
-            </FormControl>
-            <ErrorMessage
-              errors={errors}
-              name="dataNascimento"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineLock />}
-                />
-                <Input
-                  type="password"
-                  placeholder="Sua senha"
-                  mb={1}
-                  {...register("password", {
-                    required: 'O campo "Senha" é obrigatório',
-                    minLength: {
-                      value: 3,
-                      message: "A senha deve ter no mínimo 3 caracteres",
-                    },
-                  })}
-                />
-              </InputGroup>
-            </FormControl>
-            <ErrorMessage
-              errors={errors}
-              name="password"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<AiOutlineLock />}
-                />
-                <Input
-                  type="password"
-                  placeholder="Confirme sua senha"
-                  {...register("confirma_password", {
-                    validate: (value) =>
-                      password.current === value || "Senhas não coincidem",
-                  })}
-                />
-              </InputGroup>
-            </FormControl>
-            <ErrorMessage
-              errors={errors}
-              name="confirma_password"
-              render={({ messages }) =>
-                messages &&
-                Object.entries(messages).map(([type, message]) => (
-                  <Text fontSize="10px" color="red" key={type}>
-                    {message}
-                  </Text>
-                ))
-              }
-            />
-            <Flex mt={2}>
-              <Button
-                width="100%"
-                disabled={cpf || email}
-                colorScheme="teal"
-                type="submit"
-                isLoading={buttonDisable}
-              >
-                Cadastrar
-              </Button>
-            </Flex>
-          </form>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineMail />}
+                  />
+                  <Input
+                    id="email"
+                    type="text"
+                    placeholder="Seu E-mail"
+                    mb={1}
+                    {...register("email", {
+                      required: 'O campo "Email" é obrigatório',
+                      pattern: {
+                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                        message: "Email inválido",
+                      },
+                    })}
+                    onBlur={(e) => checarEmail(e.target.value)}
+                    onFocus={() => (documentoEmail.style.borderColor = "")}
+                  />
+                </InputGroup>
+              </FormControl>
+              {email ? (
+                <Text fontSize="10px" color="red">
+                  Este email já está em uso. Tente outro.
+                </Text>
+              ) : (
+                <Text></Text>
+              )}
+              <ErrorMessage
+                errors={errors}
+                name="email"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
+
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineCreditCard />}
+                  />
+                  <Input
+                    id="cpf"
+                    as={InputMask}
+                    mask="999.999.999-99"
+                    type="text"
+                    placeholder="Seu CPF"
+                    mb={1}
+                    {...register("cpf", {
+                      required: 'O campo "CPF" é obrigatório',
+                    })}
+                    onBlur={(e) => checarCPF(e.target.value)}
+                    onFocus={() => {
+                      documentoCpf.style.borderColor = "";
+                    }}
+                  />
+                </InputGroup>
+              </FormControl>
+              {cpf ? (
+                <Text color="red" fontSize="10px">
+                  CPF em uso
+                </Text>
+              ) : (
+                <Text></Text>
+              )}
+              <ErrorMessage
+                errors={errors}
+                name="cpf"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineCalendar />}
+                  />
+                  <Input
+                    as={InputMask}
+                    mask="99/99/9999"
+                    placeholder="Sua data de nascimento"
+                    mb={1}
+                    {...register("dataNascimento", {
+                      required: 'O campo "Data de Nascimento" é obrigatório',
+                    })}
+                  />
+                </InputGroup>
+              </FormControl>
+              <ErrorMessage
+                errors={errors}
+                name="dataNascimento"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineLock />}
+                  />
+                  <Input
+                    type="password"
+                    placeholder="Sua senha"
+                    mb={1}
+                    {...register("password", {
+                      required: 'O campo "Senha" é obrigatório',
+                      minLength: {
+                        value: 3,
+                        message: "A senha deve ter no mínimo 3 caracteres",
+                      },
+                    })}
+                  />
+                </InputGroup>
+              </FormControl>
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<AiOutlineLock />}
+                  />
+                  <Input
+                    type="password"
+                    placeholder="Confirme sua senha"
+                    {...register("confirma_password", {
+                      validate: (value) =>
+                        password.current === value || "Senhas não coincidem",
+                    })}
+                  />
+                </InputGroup>
+              </FormControl>
+              <ErrorMessage
+                errors={errors}
+                name="confirma_password"
+                render={({ messages }) =>
+                  messages &&
+                  Object.entries(messages).map(([type, message]) => (
+                    <Text fontSize="10px" color="red" key={type}>
+                      {message}
+                    </Text>
+                  ))
+                }
+              />
+              <Flex mt={2}>
+                <Button
+                  width="100%"
+                  color="white"
+                  textTransform="uppercase"
+                  disabled={cpf || email}
+                  background="rgb(130, 87, 229)"
+                  type="submit"
+                  isLoading={buttonDisable}
+                >
+                  Cadastrar
+                </Button>
+              </Flex>
+            </form>
+          </Flex>
         </Flex>
       </Flex>
     </>

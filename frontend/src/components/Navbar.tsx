@@ -55,7 +55,7 @@ export function Navbar() {
     loginDeUsuario(data)
       .then((res) => {
         const tokenJwt = res.data.token;
-        console.log(res.data)
+        console.log(res.data);
         setToken(tokenJwt);
         setAuth({ usuario, password, tokenJwt });
         navigate("/conta");
@@ -148,6 +148,9 @@ export function Navbar() {
                   disabled
                   as={IconButton}
                   background="none"
+                  color="#4717F6"
+                  variant="ghost"
+                  borderColor="#4717F6"
                   icon={<LockIcon />}
                 />
               ) : (
@@ -155,6 +158,9 @@ export function Navbar() {
                   as={IconButton}
                   type="submit"
                   background="none"
+                  color="#4717F6"
+                  variant="ghost"
+                  borderColor="#4717F6"
                   icon={<ArrowForwardIcon />}
                 />
               )}
@@ -166,7 +172,19 @@ export function Navbar() {
                 textDecoration: "none",
               }}
             >
-              <Button colorScheme="teal">abra sua conta</Button>
+              <Button
+                variant="outline"
+                color="white"
+                fontSize="12px"
+                borderColor="#4717F6"
+                fontWeight="700"
+                textTransform="uppercase"
+                _hover={{
+                  background: "#4717F6",
+                }}
+              >
+                abra sua conta
+              </Button>
             </Link>
           </form>
         </HStack>
@@ -191,7 +209,6 @@ export function Navbar() {
               _hover={{}}
               _active={{}}
             ></IconButton>
-            
           </Flex>
           <Link onClick={deslogarUsuario}>Sair</Link>
         </Flex>
@@ -199,7 +216,12 @@ export function Navbar() {
     );
   }
   return (
-    <Flex alignItems="center" backgroundColor="teal" height="100px">
+    <Flex
+      alignItems="center"
+      backgroundColor="#121214"
+      height="100px"
+      boxShadow="inset 0 -1px 0 #29292e"
+    >
       <Flex>
         {auth.usuario ? (
           <>
@@ -210,7 +232,7 @@ export function Navbar() {
                 textDecoration: "none",
               }}
             >
-              <Heading size="md" ml={1} color="white">
+              <Heading as="h4" size="md" ml={1} color="#4717F6">
                 Banco Digital
               </Heading>
             </Link>

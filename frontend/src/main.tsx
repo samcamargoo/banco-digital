@@ -8,28 +8,38 @@ import { AuthProvider } from "./context/AuthProvider";
 
 const theme = extendTheme({
   fonts: {
-    heading: `'Inter', sans-serif`,
-    body: `'Roboto', sans-serif`
-    
+    heading: `'Roboto', sans-serif`,
+    body: `'Roboto', sans-serif`,
   },
   components: {
     Button: {
       baseStyle: {
-        fontFamily: 'Inter'
-      }
-    }
-  }
+        fontFamily: "Inter",
+      },
+    },
+
+    Text: {
+      baseStyle: {
+        color: "white",
+      },
+    },
+    Heading: {
+      baseStyle: {
+        color: "white",
+      },
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
-      </AuthProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/*" element={<App />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </ChakraProvider>
   </React.StrictMode>

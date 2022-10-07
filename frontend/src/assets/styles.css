@@ -1,0 +1,21 @@
+.App {
+    min-height: 100vh;
+    height: 100%;
+}
+
+
+html, body {
+    min-height: 100% !important;
+    height: 100% !important;
+    background: #121214 !important;
+    background-color: #121214 !important;
+    margin: 0;
+    padding:0;
+    
+    
+  }
+
+ 
+  footer {
+    color: white;
+  }

@@ -42,6 +42,10 @@ public class EmailSenderService {
 	}
 
 	private String buildBoletoEmail(EmailBoletoGerado boleto) {
-		return "<p>Você recebeu uma cobrança no valor de " + boleto.getValor() + " referente ao produto/serviço "+ boleto.getDescricao()+ "</p>";
+		return "<p>Você recebeu uma cobrança no valor de " + boleto.getValor() + " referente ao produto/serviço "+ boleto.getDescricao()+ "</p>"
+				+ "<p>Para realizar o pagamento copie o código de barras: " + boleto.getCodigoDeBarras() + ", acesse <a href=\"" + "https://mock-banco-digital.netlify.app" + "\">Mock Banco Digital</a> e acesse"
+				+ " sua conta para realizar o pagamento"
+				+ "</p>";
+				
 	}
 }

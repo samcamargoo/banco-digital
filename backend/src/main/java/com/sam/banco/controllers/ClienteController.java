@@ -40,4 +40,9 @@ public class ClienteController {
 	public boolean existsByEmail(@RequestParam(name = "email") String email) {
 		return clienteService.existsByEmail(email);
 	}
+	
+	@GetMapping("/cliente-info")
+	public ResponseEntity<Object> listarInfoCliente(@RequestParam(name = "email") String email) {
+		return clienteService.listarInfoCliente(email);
+	}
 }
